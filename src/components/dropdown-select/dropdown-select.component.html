@@ -1,0 +1,64 @@
+<app-dropdown
+  [dropdownMenuHandler]="dropdownMenuHandler"
+  [position]="position"
+  [fullWidth]="true" [disabled]="disabled">
+  <ng-container ngProjectAs="dropdownToggle" #dropdownToggle>
+    <div
+      [ngClass]="{'dropdown-select--open': dropdownMenuHandler.isMenuShown$ | async}"
+      class="dropdown-select">
+      <ng-container *ngIf="editable">
+        <input (blur)="onInputBlur($event)"
+          [(ngModel)]="label"
+          [ngClass]="{'form-control': showAsInput}"
+          [placeholder]="placeholder"
+          tabindex="0"
+          [disabled]="disabled"
+          type="text"
+          #trigger>
+      </ng-container>
+      <button *ngIf="!editable"
+        [disabled]="disabled"
+        [ngClass]="showAsInput ? 'form-control' : 'dropdown-select-control'"
+        title="{{label}}" tabindex="0" type="button" #trigger>
+        <span class="dropdown-select-label"
+          [ngClass]="{'dropdown-select-placeholder': !selectedItem}">
+          {{selectedItem ? label : placeholder}}
+        </span>
+      </button>
+      <div *ngIf="arrowShown"
+        [ngClass]="{'dropdown-select-caret--input': showAsInput}"
+        [@caretRotation]="(dropdownMenuHandler.isMenuShown$ | async) ? 'rotated' : 'default'"
+        class="dropdown-select-caret">
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container ngProjectAs="dropdownContent" #dropdownContent>
+
+    <ng-container *ngIf="options">
+      <app-dropdown-panel [maxHeight]="maxHeight" [maxWidth]="maxWidth">
+        <app-dropdown-item *ngFor="let item of options; let i = index"
+          (click)="onItemClick(item)"
+          [noBorder]="true"
+          [selected]="!!(selectedItem && item.value === selectedItem.value)"
+          [ngClass]="{'dropdown-item-focused': i === focusedIndex}">
+          {{item.label}}
+        </app-dropdown-item>
+      </app-dropdown-panel>
+    </ng-container>
+
+    <ng-container *ngIf="optionsGroup">
+      <app-dropdown-panel *ngFor="let item of optionsGroup;">
+        <app-dropdown-item
+          *ngFor="let subItem of item.items; let i = index"
+          (click)="onItemClick(subItem)"
+          [noBorder]="true"
+          [selected]="!!(selectedItem && subItem.value === selectedItem.value)"
+          [ngClass]="{'dropdown-item-focused': getGroupItemFocusIndex(item.items, i) === focusedIndex}">
+          {{subItem.label}}
+        </app-dropdown-item>
+      </app-dropdown-panel>
+    </ng-container>
+
+  </ng-container>
+</app-dropdown>
