@@ -13,7 +13,7 @@ jobs:
           node-version: '18'
       - run: npm ci
       - run: npm install -g @angular/cli
-      - run: ng build --base-href /dropdown-project/
+      - run: ng build --base-href /dropdown-example/
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
