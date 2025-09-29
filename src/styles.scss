@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+@use "bootstrap/scss/bootstrap";
+
+.placeholder-component {
+  .token {
+    font-weight: 600;
+    border-radius: 0.25rem;
+    padding: 0 0.25rem;
+    display: inline-block;
+    margin: 0 1px;
+    line-height: 1.4;
+    user-select: text;
+  }
+
+  .token-name {
+    color: white;
+    background-color: blue;
+  }
+
+  .token-date {
+    color: white;
+    background-color: green;
+  }
+
+  .placeholder-toolbar {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+  }
+}

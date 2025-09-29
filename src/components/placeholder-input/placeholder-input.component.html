@@ -1,0 +1,33 @@
+<div [ngClass]="customClasses?.root">
+  <div *ngIf="showToolbar" [ngClass]="customClasses?.toolbar || 'toolbar'">
+    <ng-container *ngIf="customButtons">
+      <ng-container
+        *ngTemplateOutlet="customButtons; context: { 
+          insertToken: insertPlaceholder.bind(this),
+          toggleToken: toggleToken.bind(this),
+        }">
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="ce-wrap">
+    <div
+      #editor
+      [ngClass]="customClasses?.editor || 'form-control ce-editor'"
+      contenteditable="true"
+      role="textbox"
+      aria-multiline="true"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (input)="onInput()"
+      (keydown)="onKeydown($event)"
+      (paste)="onPaste($event)">
+    </div>
+
+    <div
+      *ngIf="placeholder && isPlaceholderVisible"
+      [ngClass]="customClasses?.placeholder || 'placeholder-text'">
+      {{ placeholder }}
+    </div>
+  </div>
+</div>

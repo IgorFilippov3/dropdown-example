@@ -5,6 +5,36 @@
   </div>
   <div class="box-2">
     <app-dropdown-select [optionsGroup]="countryGroups"
-      [showAsInput]="true" maxWidth="900px" placeholder="Select a country"></app-dropdown-select>
+      [showAsInput]="true" maxWidth="900px"
+      placeholder="Select a country"></app-dropdown-select>
   </div>
+
+</div>
+<div class="container">
+
+  <ng-template #toolbar let-insertToken="insertToken"
+    let-toggleToken="toggleToken">
+    <button class="btn btn-primary"
+      (click)="toggleToken('%name%', 'token token-name')">
+      Name
+    </button>
+    <button class="btn btn-primary"
+      (click)="toggleToken('%date%', 'token token-date')">
+      Date
+    </button>
+    <button class="btn btn-primary"
+      (click)="toggleToken('%project%')">
+      Project
+    </button>
+  </ng-template>
+
+  <app-placeholder-input
+    [(ngModel)]="templateText"
+    [customButtons]="toolbar"
+    [customClasses]="{
+      root: 'placeholder-component',
+      toolbar: 'placeholder-toolbar',
+    }"
+    placeholder="Placeholder text...">
+  </app-placeholder-input>
 </div>
